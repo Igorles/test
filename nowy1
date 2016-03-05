@@ -1,0 +1,154 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <time.h>
+#include <string.h>
+#include <stdio.h>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+
+
+	fstream plik;
+    plik.open("nowypl.txt",ios::in);
+	fstream plik2;
+    plik2.open("nowyen.txt",ios::in);
+	if (plik.good()==false)
+    {
+        cout<<"Nie udalo sie otworzyc pliku!";
+        exit(0);
+    }
+
+    if (plik2.good()==false)
+    {
+        cout<<"Nie udalo sie otworzyc pliku!";
+        exit(0);
+    }
+	 // ofstream wyjscie ("skopiowane.txt");
+
+      ifstream wejscie ("nowypl.txt");
+      string wyraz;
+      int i=0;
+      while( !wejscie.eof() )
+{
+            getline( wejscie, wyraz );
+
+
+          // cout<< i<<"\n";
+            i++;
+}
+
+	//cout<<"ilosc linii wynosi: "<<i<<endl;
+	int rozmiar=0;
+	int specjalna=0;
+	specjalna=i;
+	rozmiar=i;
+	//cout<<"Rozmiar tablicy wynosi: "<<rozmiar<<endl;
+	string *tablica1 = new string[rozmiar];
+	string *tablica2 = new string[rozmiar];
+	string linia;
+	string linia2;
+	int licznik=0;
+
+	while(!plik.eof())
+    {
+        getline(plik, linia);
+        tablica1[licznik]=linia.c_str();
+        licznik++;
+    }
+    for(i=0;i<licznik;i++)
+	{	cout<<"nasza tablica1: "<<tablica1[i]<<endl;
+	}
+
+plik.close();
+
+    int licznik2=0;
+    while(!plik2.eof())
+    {
+        getline(plik2, linia2);
+        tablica2[licznik2]=linia2.c_str();
+        licznik2++;
+    }
+plik2.close();
+
+
+	for(i=0;i<licznik2;i++)
+	{	//cout<<"nasza tablica2: "<<tablica2[i]<<endl;
+	}
+	int numerek,punkty,ilosc,ilosc_ekstra;
+	punkty=0;
+	string odpowiedz;
+	cout<<"Zaczynamy nauke! "<<endl;
+	cout<<"Wybierz ilosc slowek: "<<endl;
+	cin>>ilosc;
+	while(ilosc==0)
+	{	cout<<"Podaj jeszcze raz:"<<endl;
+		cin>>ilosc;
+	}
+	ilosc_ekstra=ilosc;
+	srand(time(NULL));
+	cin.ignore();
+	for (i=0; i<ilosc; i++)
+	{
+		numerek=rand()%specjalna;
+
+		cout<<endl;
+		cout<<"Wybrany numerek: "<<numerek+1<<endl;
+
+		cout<<"Slowko do przetlumaczenia: "<<tablica1[numerek]<<endl;
+		cout<<"Podaj odpowiedz: ";
+
+		getline(cin,odpowiedz);
+
+		//cin>>odpowiedz;
+		//cout<<odpowiedz<<endl;
+		//cout << "Długosc wyrazu: " << odpowiedz.length() << endl;
+		if (odpowiedz == tablica2[numerek])
+		{
+			cout<<"Dobrze! Zdobywasz punkt! "<<endl;
+            punkty++;
+		}
+		else
+		cout<<"Zle! Brak punktu! Poprawna odpowiedz: "<<tablica2[numerek]<<endl;
+
+	}
+
+	//ilosc_ekstra
+
+	delete[]tablica1;
+	delete[]tablica2;
+	if(punkty==ilosc)
+	{
+	cout<<"--------------------------------------"<<endl;
+	cout<<"|   Twoj wynik to:"<<punkty<<" Na mozliwe: "<<ilosc<<"  |"<<endl;
+	cout<<"--------------------------------------"<<endl;
+	cout<<endl;
+	cout<<"     "<<endl;
+	cout<<"            "<<endl;
+	cout<<"        "<<endl;
+	cout<<"    "<<endl;
+	cout<<" "<<endl;
+	cout<<""<<endl;
+	cout<<" "<<endl;
+	cout<<"  "<<endl;
+	cout<<"    "<<endl;
+	cout<<"       "<<endl;
+	cout<<"         "<<endl;
+	cout<<"           "<<endl;
+	cout<<"             "<<endl;
+	cout<<"               "<<endl;
+	cout<<"                 "<<endl;
+	cout<<endl;
+	cout<<"To juz koniec wcisnij przycisk aby zamknac konsole :P"<<endl;
+	}
+	else{
+	cout<<"--------------------------------------"<<endl;
+	cout<<"|   Twoj wynik to:"<<punkty<<" Na mozliwe: "<<ilosc<<"  |"<<endl;
+	cout<<"--------------------------------------"<<endl;
+	cout<<"To juz koniec wcisnij przycisk aby zamknac konsole :P"<<endl;}
+	cin.get();
+	return 0;
+}
